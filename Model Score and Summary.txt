@@ -1,0 +1,20 @@
+Eval num_timesteps=2500000, episode_reward=327.10 +/- 0.67
+Episode length: 682.95 +/- 4.88
+---------------------------------
+| eval/              |          |
+|    mean_ep_length  | 683      |
+|    mean_reward     | 327      |
+| time/              |          |
+|    total_timesteps | 2500000  |
+| train/             |          |
+|    actor_loss      | -36.7    |
+|    critic_loss     | 0.0917   |
+|    ent_coef        | 0.0113   |
+|    ent_coef_loss   | -0.0558  |
+|    learning_rate   | 0.0003   |
+|    n_updates       | 311249   |
+---------------------------------
+New best mean reward!
+Final model saved to: D:\Personal Projects\Old Projects\Reinforcement Learning Projects\BIpedal Walker\sac_bipedalwalker_final.zip
+Best model saved to: D:\Personal Projects\Old Projects\Reinforcement Learning Projects\BIpedal Walker\best_model\best_model.zip
+Checkpoints saved to: D:\Personal Projects\Old Projects\Reinforcement Learning Projects\BIpedal Walker\checkpoints

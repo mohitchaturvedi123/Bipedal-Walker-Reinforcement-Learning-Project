@@ -1,0 +1,58 @@
+🔧 Recommended Changes
+Increase timesteps
+
+Go beyond 1M → aim for 1.5–2M timesteps. SAC usually needs this range to learn stable walking.
+
+Tune hyperparameters
+
+batch_size=256 (instead of default 64) → more stable gradient updates.
+
+buffer_size=1_000_000 → large replay buffer improves sample diversity.
+
+Keep learning_rate=3e-4, gamma=0.99, tau=0.005 (these defaults are strong).
+
+Optionally set train_freq=1 and gradient_steps=1 for smoother updates.
+
+Evaluation callback frequency
+
+Right now you evaluate every 50k steps. That’s fine, but you could make it every 100k steps to reduce slowdown.
+
+Run 20 episodes per evaluation for reliable averages.
+
+Checkpoint saving
+
+Save models every 200k–300k steps (e.g., sac_bipedalwalker_step200k.zip).
+
+This way you can resume training if interrupted and compare performance across checkpoints.
+
+Parallel env count
+
+8 envs is good. If your workstation can handle it, try 16 envs for faster sample collection.
+
+More envs = faster training, but higher memory usage.
+
+🎯 Updated Version 2 Code
+python
+import gymnasium as gym
+from stable_baselines3 import SAC
+from stable_baselines3.common.vec_env import SubprocVecEnv, make_vec_env
+
+# Parallel training envs (fast, no rendering)
+train_env = make_vec_env("BipedalWalker-v3", n_envs=8, vec_env_cls=SubprocVecEnv)
+
+model = SAC(
+    "MlpPolicy",
+    train_env,
+    verbose=1,
+    batch_size=256,
+    buffer_size=1_000_000,
+    learning_rate=3e-4,
+    gamma=0.99,
+    tau=0.005,
+)
+
+# Train long enough for strong performance
+model.learn(total_timesteps=1_500_000)
+
+# Save final model
+model.save(r"D:\Personal Projects\Old Projects\Reinforcement Learning Projects\BIpedal Walker\sac_bipedalwalker")
